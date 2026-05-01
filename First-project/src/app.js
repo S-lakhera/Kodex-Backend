@@ -3,7 +3,7 @@ const express = require('express')
 let app = express()
 app.use(express.json())
 
-let users = []
+let users = [] 
 
 app.get("/", (req, res) => {
     res.send("I am express")
