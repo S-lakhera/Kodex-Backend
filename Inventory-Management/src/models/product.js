@@ -14,6 +14,11 @@ const productSchema = new mongoose.Schema({
     quantity: {
         type: Number,
         default: 1
+    },
+    category:{
+        type:String,
+        requied:true,
+        default:"groccery"
     }
 },{
     timestamps:true

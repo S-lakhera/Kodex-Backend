@@ -78,6 +78,7 @@ The server will start at `http://localhost:3000`.
 | `description` | String | ❌ No | — | — |
 | `price` | Number | ✅ Yes | — | — |
 | `quantity` | Number | ❌ No | `1` | — |
+| `category` | String | ✅ Yes | `groccery` | — |
 | `createdAt` | Date | Auto | — | Mongoose timestamp |
 | `updatedAt` | Date | Auto | — | Mongoose timestamp |
 
@@ -140,7 +141,8 @@ Creates a new product.
   "title": "Wireless Mouse",
   "description": "Ergonomic wireless mouse with USB receiver",
   "price": 799,
-  "quantity": 50
+  "quantity": 50,
+  "category" : "electronics"
 }
 ```
 
