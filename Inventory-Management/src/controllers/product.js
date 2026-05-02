@@ -22,10 +22,20 @@ let getProducts = async (req, res) => {
 let createProduct = async (req, res) => {
 
     try {
-        let { title, description, price, quantity } = req.body;
+        let { title, description, price, quantity, category } = req.body;
+
+        if (!title) return res.status(400).json({
+            message: "Title is mandatory"
+        })
+        else if (!price) return res.status(400).json({
+            message: "Price is mandatory"
+        })
+        else if (!category) return res.status(400).json({
+            message: "Category is mandatory"
+        })
 
         let newProduct = new Product({
-            title, description, price, quantity
+            title, description, price, quantity, category
         })
 
         let savedProduct = await newProduct.save();
@@ -48,6 +58,12 @@ let getSingleProduct = async (req, res) => {
         let { id } = req.params;
         let product = await Product.findById(id);
 
+        if (!product) {
+            return res.status(404).json({
+                message: "product not found"
+            })
+        }
+
         return res.status(200).json({
             message: "Product Fetched Successfully",
             product
@@ -66,6 +82,12 @@ let deleteProduct = async (req, res) => {
         let { id } = req.params;
         let product = await Product.findByIdAndDelete(id);
 
+        if (!product) {
+            return res.status(404).json({
+                message: "product not found to delete"
+            })
+        }
+
         return res.status(200).json({
             message: "Product deleted Successfully",
             product
@@ -81,9 +103,17 @@ let deleteProduct = async (req, res) => {
 let updateProduct = async (req, res) => {
     try {
         let { id } = req.params;
-        console.log(req.body);
+        let { title, description, price, quantity, category } = req.body;
 
-        let updatedProduct = await Product.findByIdAndUpdate(id, req.body, { new: true });
+        let updatedProduct = await Product.findByIdAndUpdate(id, {
+            title, description, price, quantity, category 
+        }, { new: true });
+
+        if (!updatedProduct) {
+            return res.status(404).json({
+                message: "product not found to Update"
+            })
+        }
 
         return res.status(200).json({
             message: "Product Updated Successfully",
