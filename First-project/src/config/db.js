@@ -1,9 +1,8 @@
 let mongoose = require('mongoose')
-let mongoUrl = process.env.MONGODB_URL
 
 let connectDb = async () => {
     try {
-        await mongoose.connect(mongoUrl)
+        await mongoose.connect(process.env.MONGODB_URL)
         console.log("MongoDB connected");
         
     } catch (e) {
