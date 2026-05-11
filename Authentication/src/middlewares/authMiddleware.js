@@ -1,4 +1,5 @@
 let jwt = require("jsonwebtoken");
+const UserModel = require("../models/userModel");
 let jwt_secret = process.env.JWT_SECRET || "dfhvhsavdcvnvuyhdcyhvzh"
 
 let authMiddleware = async (req, res, next) => {
@@ -13,7 +14,15 @@ let authMiddleware = async (req, res, next) => {
         // Checking if token is un-tampered
         let verifiedUser = jwt.verify(token, jwt_secret)
         if (!verifiedUser) {
-            return res.status(404).json({
+            return res.status(401).json({
+                message: "UnAuthorized User..."
+            })
+        }
+
+        let user = await UserModel.findById(verifiedUser.id);
+        console.log(user);
+        if(!user){
+            return res.status(401).json({
                 message: "UnAuthorized User..."
             })
         }
