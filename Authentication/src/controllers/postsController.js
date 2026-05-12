@@ -2,8 +2,10 @@
 
 let fetchPostsController = (req, res) => {
     try {
+        console.log(req.user)
+        let name = req.user.name;
         return res.status(200).json({
-            message:"Fetched all posts successfully",
+            message: `Fetched all posts successfully for : ${name}`,
         })
     } catch (error) {
         console.log(error)

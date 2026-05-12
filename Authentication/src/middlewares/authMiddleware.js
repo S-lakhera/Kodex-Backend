@@ -20,12 +20,13 @@ let authMiddleware = async (req, res, next) => {
         }
 
         let user = await UserModel.findById(verifiedUser.id);
-        console.log(user);
+        // console.log(user);
         if(!user){
             return res.status(401).json({
                 message: "UnAuthorized User..."
             })
         }
+        req.user = user;
 
         next();
 
